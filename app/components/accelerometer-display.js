@@ -3,12 +3,13 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   x: 0,
   y: 0,
+  z: 0,
   on: true,
   startLogging: function(){
     //begin logging accelerometer data once the component launches
 
     var component = this;
-    this.updateAccelData(component)
+    this.updateAccelData(component);
     
   }.on('init'),
   updateAccelData: function(component){
