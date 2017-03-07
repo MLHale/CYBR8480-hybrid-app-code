@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 
     var component = this;
     this.updateAccelData(component);
-    
+
   }.on('init'),
   updateAccelData: function(component){
     Ember.run.later(function(){
