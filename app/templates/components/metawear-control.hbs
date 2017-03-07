@@ -16,4 +16,6 @@
 			<button type="button" class="btn red btn-sm" {{action 'stopLED'}}>Turn off LEDs </button>
 		</div>
 	</div>
+
+	{{time-series-chart lineData=MWAccelHistory}}
 {{/if}}
