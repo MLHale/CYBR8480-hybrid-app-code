@@ -35,11 +35,13 @@ export default Ember.Component.extend({
 							this.get('updateAccelData')(component,result);
 						}, function(error){//fail
 							console.log(error);
+							alert('error: '+error);
 						}
 					);
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 			}, 100);//run after 100ms
 		},
@@ -53,6 +55,7 @@ export default Ember.Component.extend({
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 			}, 100);//run after 100ms
 		},
@@ -69,10 +72,12 @@ export default Ember.Component.extend({
 							component.set('metawearConnected', true);
 						}, function(error){//failure
 							console.log('connection failed' +error);
+							alert('error: '+error);
 						});
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 
 			}, 100);//run after 100ms
@@ -89,6 +94,7 @@ export default Ember.Component.extend({
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 
 			}, 100);//run after 100ms
@@ -108,6 +114,7 @@ export default Ember.Component.extend({
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 
 			}, 100);//run after 100ms
@@ -122,6 +129,7 @@ export default Ember.Component.extend({
 				}
 				catch(err){
 					console.log('error: '+err);
+					alert('error: '+err);
 				}
 
 			}, 100);//run after 100ms
