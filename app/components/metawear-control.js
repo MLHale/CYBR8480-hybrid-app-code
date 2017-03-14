@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 	metawearConnected: false,
-	macAddressOfBoard: '',
+	macAddressOfBoard: 'D9:30:6C:DF:E0:A9',
 	MWaccelHistory: [],
 	updateAccelData: function(component, result){
 		component.set('x', result.x);
@@ -21,6 +21,7 @@ export default Ember.Component.extend({
 		var newYPoint = {time: t, label: 'y', value: result.y};
 		var newZPoint = {time: t, label: 'z', value: result.z};
 		history.addObjects([newXPoint, newYPoint, newZPoint]);
+		console.log('Added point: x=' + result.x + ', y='+result.y+', z='+result.z)
 	},
 	actions: {
 		accelON: function(){
@@ -29,10 +30,10 @@ export default Ember.Component.extend({
 				//wrapper to preserve binding satistfaction
 				try {
 				//invoke metawear connection
-					console.log('attempting to start accelerometer on: ' + this.get('macAddressOfBoard'));
+					console.log('attempting to start accelerometer on: ' + component.get('macAddressOfBoard'));
 					metawear.mwdevice.startAccelerometer(
 						function(result){ //success
-							this.get('updateAccelData')(component,result);
+							component.get('updateAccelData')(component,result);
 						}, function(error){//fail
 							console.log(error);
 							alert('error: '+error);
@@ -46,11 +47,12 @@ export default Ember.Component.extend({
 			}, 100);//run after 100ms
 		},
 		accelOFF: function(){
+			var component = this;
 			Ember.run.later(function(){
 				//wrapper to preserve binding satistfaction
 				try {
 				//invoke metawear connection
-					console.log('attempting to stop accelerometer on: ' + this.get('macAddressOfBoard'));
+					console.log('attempting to stop accelerometer on: ' + component.get('macAddressOfBoard'));
 					metawear.mwdevice.stopAccelerometer();
 				}
 				catch(err){
@@ -66,7 +68,7 @@ export default Ember.Component.extend({
 				try {
 				//invoke metawear connection
 					console.log('attempting to connect to: ' + component.get('macAddressOfBoard'));
-					metawear.mwdevice.connect(macAddressOfBoard,
+					metawear.mwdevice.connect(component.get('macAddressOfBoard'),
 						function(){//success
 							console.log('connected');
 							component.set('metawearConnected', true);
@@ -100,16 +102,16 @@ export default Ember.Component.extend({
 			}, 100);//run after 100ms
 		},
 		playLED: function(){
-
+			var component = this;
 			Ember.run.later(function(){
 				//wrapper to preserve binding satistfaction
 				try {
 				//invoke metawear connection
 					console.log('Turning on Blue Light: ' + component.get('macAddressOfBoard'));
 					metawear.mwdevice.playLED({channel:"BLUE",
-						riseTime: 750, pulseDuration: 2000,
-						repeatCount: -1, highTime: 500,
-						fallTime: 750, lowIntensity: 0,
+						riseTime: 0, pulseDuration: 1000,
+						repeatCount: 5, highTime: 500,
+						fallTime: 750, lowIntensity: 16,
 						highIntensity: 31});
 				}
 				catch(err){
@@ -120,6 +122,7 @@ export default Ember.Component.extend({
 			}, 100);//run after 100ms
 		},
 		stopLED: function(){
+			var component = this;
 			Ember.run.later(function(){
 				//wrapper to preserve binding satistfaction
 				try {
